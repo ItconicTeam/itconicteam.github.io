@@ -1,0 +1,365 @@
+/* =========================================================
+   ITCONIC — Team links
+   الهوية مأخوذة من الشعار والباجة الرسمية
+   ========================================================= */
+
+/* ---------- 1) الخطوط ---------- */
+/* خط ثمانية: يُحمَّل من الموقع الرسمي font.thmanyah.com ثم توضع ملفات OTF
+   كما هي (بدون تعديل أو تحويل) داخل fonts/thmanyah/
+   ⚠️ عدّل أسماء الملفات أدناه لتطابق الأسماء الفعلية في الحزمة. */
+@font-face {
+  font-family: "Thmanyah Sans";
+  src: url("../fonts/thmanyah/thmanyahsans-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Sans";
+  src: url("../fonts/thmanyah/thmanyahsans-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Sans";
+  src: url("../fonts/thmanyah/thmanyahsans-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ---------- 2) المتغيرات (Design Tokens) ---------- */
+:root {
+  /* ألوان الشعار */
+  --navy: #17264f;       /* الكحلي الأساسي (خلفية الباجة) */
+  --navy-deep: #0f1a3a;  /* عمق الخلفية */
+  --navy-raised: #1f3163;/* سطح الأزرار */
+  --steel: #7898c1;      /* أزرق الحروف في الشعار (للخطوط والزخارف) */
+  --mist: #a9bddb;       /* نص ثانوي مقروء */
+  --ice: #cce6f8;        /* نقطة حرف i — لون التمييز */
+  --white: #ffffff;
+
+  --font-ar: "Thmanyah Sans", "Segoe UI", Tahoma, system-ui, sans-serif;
+  --font-en: "Cherry Bomb One", ui-rounded, "Segoe UI", system-ui, sans-serif;
+
+  --radius-sm: 12px;
+  --radius: 18px;
+  --page-w: 30rem;
+  --spine: 1.375rem;      /* عرض عمود الدائرة الكهربائية */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+
+  color-scheme: dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: inherit; }
+
+/* ---------- 3) الأساس ---------- */
+html { -webkit-text-size-adjust: 100%; height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(120% 70% at 50% 0%, var(--navy) 0%, var(--navy) 45%, var(--navy-deep) 100%);
+  background-color: var(--navy);
+  color: var(--white);
+  font-family: var(--font-ar);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+html[lang="en"] body { font-family: var(--font-en); line-height: 1.6; font-synthesis: none; }
+[lang="en"] { font-family: var(--font-en); font-synthesis: none; }
+[lang="ar"] { font-family: var(--font-ar); }
+
+img, svg { max-width: 100%; display: block; }
+p { margin: 0; }
+
+:focus-visible {
+  outline: 3px solid var(--ice);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- 4) زخارف الخلفية (من الباجة) ---------- */
+.backdrop { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: clamp(28px, 7vw, 56px) solid rgba(120, 152, 193, .14);
+}
+.ring--top    { width: 52vmax; height: 52vmax; top: -30vmax; inset-inline-start: -30vmax; }
+.ring--bottom { width: 44vmax; height: 44vmax; bottom: -26vmax; inset-inline-end: -24vmax; }
+.dots {
+  position: absolute;
+  width: 88px; height: 88px;
+  background-image: radial-gradient(rgba(169, 189, 219, .35) 1.5px, transparent 1.6px);
+  background-size: 18px 18px;
+}
+.dots--a { top: 6rem; inset-inline-end: 8%; }
+.dots--b { bottom: 1.5rem; inset-inline-end: 6%; }
+.code-glyph {
+  position: absolute;
+  top: 42%;
+  inset-inline-end: 6%;
+  font-family: var(--font-en);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: rgba(120, 152, 193, .22);
+}
+
+/* الكلمة العمودية الكبيرة — مثل كلمة LEADER على الباجة */
+.watermark {
+  position: fixed;
+  z-index: 0;
+  top: 50%;
+  right: -.08em;               /* خصائص فيزيائية: الكتابة العمودية تقلب معنى inline */
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-family: var(--font-en);
+  font-size: clamp(6rem, 24vw, 13rem);
+  line-height: 1;
+  letter-spacing: .02em;
+  color: rgba(120, 152, 193, .11);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+html[dir="rtl"] .watermark { right: auto; left: -.08em; transform: translateY(-50%) rotate(180deg); }
+
+/* ---------- 5) الشريط العلوي ---------- */
+.topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  width: min(100% - 2.5rem, var(--page-w));
+  margin: 1.25rem auto 0;
+}
+.lang-toggle {
+  appearance: none;
+  border: 1px solid rgba(169, 189, 219, .45);
+  background: rgba(15, 26, 58, .55);
+  color: var(--ice);
+  font-size: .95rem;
+  padding: .35rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background-color .2s, border-color .2s;
+}
+.lang-toggle:hover { background: var(--navy-raised); border-color: var(--ice); }
+
+/* ---------- 6) المحتوى ---------- */
+.page {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: min(100% - 2.5rem, var(--page-w));
+  margin: 0 auto;
+  padding-block: 2.5rem 2rem;
+}
+
+/* الشعار بألوانه الأصلية مع إطار أبيض حول الأحرف ليظهر الكحلي على الخلفية الكحلية */
+.brand { margin: 0; }
+.brand img { width: min(15rem, 68vw); height: auto; }
+
+.tagline {
+  margin-top: .9rem;
+  font-size: 1.15rem;
+  color: var(--ice);
+  letter-spacing: .01em;
+}
+
+.bio {
+  margin-top: 1.5rem;
+  font-size: 1.0625rem;
+  color: var(--mist);
+  max-width: 34ch;
+}
+.bio p:first-child { color: var(--white); font-weight: 500; }
+html[lang="en"] .bio { font-size: 1rem; }
+
+/* ---------- 7) الروابط على شكل دائرة كهربائية ---------- */
+.links-section { margin-top: 2.75rem; }
+.links-heading {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--mist);
+}
+html[lang="en"] .links-heading { font-weight: 400; }
+
+.links {
+  --node: 11px;
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-inline-start: var(--spine);
+  display: grid;
+  gap: .875rem;
+}
+/* العمود الرأسي */
+.links::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(var(--node) / 2 - 1px);
+  top: -1rem;
+  bottom: 1.9rem;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(120, 152, 193, 0), var(--steel) 1.25rem);
+  transform-origin: top;
+}
+.links li { position: relative; }
+/* الفرع الأفقي */
+.links li::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  inset-inline-start: calc(var(--spine) * -1 + var(--node) / 2);
+  width: calc(var(--spine) - var(--node) / 2);
+  height: 2px;
+  background: var(--steel);
+}
+/* العقدة */
+.links li::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  inset-inline-start: calc(var(--spine) * -1);
+  width: var(--node);
+  height: var(--node);
+  margin-top: calc(var(--node) / -2);
+  border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid var(--steel);
+  transition: background-color .2s, border-color .2s, box-shadow .2s;
+}
+.links li:hover::after,
+.links li:focus-within::after {
+  background: var(--ice);
+  border-color: var(--ice);
+  box-shadow: 0 0 0 5px rgba(204, 230, 248, .18);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  min-height: 4.25rem;
+  padding: .7rem .9rem;
+  border-radius: var(--radius);
+  background: rgba(31, 49, 99, .78);
+  border: 1px solid rgba(120, 152, 193, .38);
+  color: var(--white);
+  text-decoration: none;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition: border-color .2s, background-color .2s, transform .25s var(--ease);
+}
+.link:hover { border-color: var(--ice); background: rgba(38, 60, 118, .9); }
+.link:active { transform: scale(.985); }
+
+.link__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--ice);
+  color: var(--navy);
+}
+.link__icon svg { width: 1.35rem; height: 1.35rem; fill: currentColor; }
+
+.link__text { display: flex; flex-direction: column; min-width: 0; line-height: 1.35; }
+.link__label { font-size: 1.1rem; font-weight: 700; }
+html[lang="en"] .link__label { font-weight: 400; }
+.link__handle {
+  font-family: var(--font-en);
+  font-size: .9rem;
+  color: var(--mist);
+  text-align: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+html[dir="rtl"] .link__handle { text-align: right; }
+
+.links--static { padding: 0; }
+.links--static::before, .links--static li::before, .links--static li::after { display: none; }
+
+/* ---------- 8) أزرار المشاركة ---------- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 2rem;
+  padding-inline-start: var(--spine);
+}
+.action {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .45rem 1rem;
+  border-radius: 999px;
+  border: 1px dashed rgba(169, 189, 219, .5);
+  background: transparent;
+  color: var(--mist);
+  font: inherit;
+  font-size: .95rem;
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.action svg { width: 1.05rem; height: 1.05rem; fill: currentColor; }
+.action:hover { color: var(--ice); border-color: var(--ice); border-style: solid; }
+
+/* ---------- 9) التذييل والإشعار ---------- */
+.footer {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 2.5rem, var(--page-w));
+  margin: 0 auto;
+  padding: 1rem 0 1.5rem;
+  color: rgba(169, 189, 219, .85);
+}
+.footer small { font-size: .85rem; }
+
+.toast {
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 1rem);
+  padding: .6rem 1.1rem;
+  border-radius: 999px;
+  background: var(--ice);
+  color: var(--navy);
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s, transform .2s var(--ease);
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- 10) لحظة الدخول الوحيدة: الدائرة تُرسم ثم تضيء العقد ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.is-settled) .links::before { animation: draw .7s var(--ease) both; }
+  body:not(.is-settled) .links li { animation: plug .5s var(--ease) both; animation-delay: calc(.35s + var(--i) * .12s); }
+  body:not(.is-settled) .links li::after { animation: pulse .6s ease-out both; animation-delay: calc(.45s + var(--i) * .12s); }
+}
+@keyframes draw  { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes plug  { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes pulse {
+  0%   { background: var(--navy); }
+  45%  { background: var(--ice); box-shadow: 0 0 0 6px rgba(204, 230, 248, .25); }
+  100% { background: var(--navy); box-shadow: 0 0 0 0 rgba(204, 230, 248, 0); }
+}
+
+/* ---------- 11) شاشات أكبر ---------- */
+@media (min-width: 48rem) {
+  .page { padding-block: 4rem 2.5rem; }
+  .brand img { width: 17rem; }
+}
