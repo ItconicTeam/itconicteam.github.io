@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ITCONIC | روابط الفريق</title>
+  <meta name="description" content="فريق ITCONIC المتخصص في تكنولوجيا المعلومات: ورش، دورات وفعاليات تقنية. تابعنا على منصات التواصل.">
+  <meta name="theme-color" content="#17264f">
+  <link rel="canonical" href="https://itconicteam.github.io/">
+
+  <!-- مشاركة الرابط (واتساب، فيسبوك، لينكدإن، X) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ITCONIC">
+  <meta property="og:title" content="ITCONIC | Learn • Build • Grow">
+  <meta property="og:description" content="فريق متخصص في تكنولوجيا المعلومات — ورش، دورات وفعاليات تقنية.">
+  <meta property="og:url" content="https://itconicteam.github.io/">
+  <meta property="og:image" content="https://itconicteam.github.io/assets/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- الخط الإنجليزي: Cherry Bomb One من Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- تحديد اللغة قبل رسم الصفحة لتجنّب الوميض -->
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search).get("lang");
+      var saved = null;
+      try { saved = localStorage.getItem("itconic-lang"); } catch (e) {}
+      // العربية هي الافتراضية، والإنجليزية عبر الزر أو الرابط ?lang=en
+      var lang = (q === "ar" || q === "en") ? q : (saved === "en" ? "en" : "ar");
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    })();
+  </script>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <span class="ring ring--top"></span>
+    <span class="ring ring--bottom"></span>
+    <span class="dots dots--a"></span>
+    <span class="dots dots--b"></span>
+    <span class="code-glyph">&lt;/&gt;</span>
+  </div>
+  <div class="watermark" aria-hidden="true">ITCONIC</div>
+
+  <header class="topbar">
+    <button class="lang-toggle" id="langToggle" type="button" lang="en" aria-label="Switch to English">English</button>
+  </header>
+
+  <main class="page" id="main">
+    <h1 class="brand">
+      <img src="assets/logo-outline.svg" alt="ITCONIC" width="274" height="77">
+    </h1>
+    <p class="tagline" lang="en">Learn • Build • Grow</p>
+
+    <div class="bio" id="bio">
+      <p>فريق متخصص في تكنولوجيا المعلومات 💻</p>
+      <p>نقدّم ورش، دورات وفعاليات تقنية</p>
+      <p>مساحة للتعلّم، التطور وبناء الخبرة</p>
+    </div>
+
+    <section class="links-section" aria-labelledby="linksHeading">
+      <h2 class="links-heading" id="linksHeading" data-i18n="linksHeading">تابعنا على</h2>
+      <ul class="links" id="links"></ul>
+      <noscript>
+        <ul class="links links--static">
+          <li><a class="link" href="https://www.instagram.com/itconic_team/" rel="noopener noreferrer">Instagram</a></li>
+          <li><a class="link" href="https://www.linkedin.com/in/itconic-team/" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a class="link" href="https://www.facebook.com/profile.php?id=61583955338226" rel="noopener noreferrer">Facebook</a></li>
+        </ul>
+      </noscript>
+    </section>
+
+    <div class="actions">
+      <button class="action" id="shareBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1Z"/></svg>
+        <span data-i18n="share">شارك الصفحة</span>
+      </button>
+      <button class="action" id="copyBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1Zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16h-9V7h9v14Z"/></svg>
+        <span data-i18n="copy">انسخ الرابط</span>
+      </button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <small>© <span id="year">2026</span> <span lang="en">ITCONIC</span> — <span data-i18n="rights">جميع الحقوق محفوظة</span></small>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/content.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
